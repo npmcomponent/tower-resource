@@ -1,0 +1,30 @@
+{
+  "name": "model",
+  "repo": "component/tower-model",
+  "description": "Tower Model component",
+  "version": "0.0.1",
+  "keywords": [
+    "collection",
+    "model",
+    "orm",
+    "db",
+    "database"
+  ],
+  "author": "Lance Pollard <lancejpollard@gmail.com>",
+  "dependencies": {
+    "component/emitter": "*",
+    "component/each": "*",
+    "timoxley/next-tick": "*"
+  },
+  "development": {
+    "component/assert": "*",
+    "component/domify": "*"
+  },
+  "scripts": [
+    "lib/index.js",
+    "lib/static.js",
+    "lib/proto.js"
+  ],
+  "main": "lib/index.js",
+  "license": "MIT"
+}
