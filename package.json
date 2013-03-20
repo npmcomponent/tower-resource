@@ -1,15 +1,13 @@
 {
   "name": "tower-model",
   "version": "0.5.0-pre",
-  "main": "./lib/index.js",
-  "author": "Lance Pollard <lancejpollard@gmail.com>",
-  "devDependencies": {
-    "chai": "~1.4.2",
-    "mocha": "~1.8.1"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
+  "keywords": [
+    "collection",
+    "model",
+    "orm",
+    "db",
+    "database"
+  ],
   "dependencies": {
     "emitter": "0.0.1",
     "each-component": "0.0.1",
@@ -17,5 +15,13 @@
     "emitter-component": "~1.0.0",
     "tower-class": "*",
     "tower-container": "*"
-  }
+  },
+  "devDependencies": {
+    "chai": "~1.4.2",
+    "mocha": "~1.8.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "main": "./lib/index.js"
 }
