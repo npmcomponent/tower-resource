@@ -12,16 +12,7 @@
     "emitter": "0.0.1",
     "each-component": "0.0.1",
     "underscore": "~1.4.4",
-    "emitter-component": "~1.0.0",
-    "tower-class": "*",
-    "tower-container": "*"
-  },
-  "devDependencies": {
-    "chai": "~1.4.2",
-    "mocha": "~1.8.1"
-  },
-  "scripts": {
-    "test": "mocha"
+    "emitter-component": "~1.0.0"
   },
   "main": "./lib/index.js"
 }
