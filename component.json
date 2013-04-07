@@ -13,7 +13,7 @@
   "dependencies": {
     "component/emitter": "*",
     "component/each": "*",
-    "timoxley/next-tick": "*"
+    "tower/adapter": "*"
   },
   "development": {
     "component/assert": "*",
