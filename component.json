@@ -13,7 +13,8 @@
   "dependencies": {
     "component/emitter": "*",
     "component/each": "*",
-    "tower/adapter": "*"
+    "tower/adapter": "*",
+    "tower-stream": "*"
   },
   "development": {
     "component/assert": "*",
