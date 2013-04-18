@@ -13,6 +13,7 @@
     "each-component": "0.0.1",
     "underscore": "~1.4.4",
     "emitter-component": "~1.0.0",
+    "tower-query": "*",
     "tower-stream": "*"
   },
   "main": "./lib/index.js"
