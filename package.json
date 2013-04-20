@@ -16,5 +16,5 @@
     "tower-query": "*",
     "tower-stream": "*"
   },
-  "main": "./lib/index.js"
+  "main": "./index.js"
 }

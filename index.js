@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-var proto = require('./proto')
-  , statics = require('./static')
+var proto = require('./lib/proto')
+  , statics = require('./lib/static')
   , Emitter = 'undefined' == typeof window ? require('emitter-component') : require('emitter');
 
 /**

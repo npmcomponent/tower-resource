@@ -1,4 +1,4 @@
-var model = require('../lib/index')
+var model = require('..')
   , assert = require('assert');
 
 describe('model', function(){
