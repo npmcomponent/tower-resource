@@ -3,6 +3,8 @@ var model = require('..')
   , assert = require('assert');
 
 describe('model', function(){
+  beforeEach(model.clear);
+
   it('should define', function(){
     var calls = 0
       , DefinedModel;
@@ -49,4 +51,38 @@ describe('model', function(){
       });
     });
   });
+
+  it('should get/set attributes', function(){
+    var calls = [];
+
+    model('user')
+      .attr('email');
+
+    var user = model('user').create();
+
+    assert(undefined === user.email());
+    user.on('change email', function(curr, prev){
+      calls.push([curr, prev]);
+    });
+    model('user')
+      .on('change email', function(record, curr, prev){
+        calls.push([record, curr, prev]);
+      });
+
+    user.email('example@gmail.com');
+    assert('example@gmail.com' === user.email());
+    assert.deepEqual([user, 'example@gmail.com', undefined], calls[0]);
+    assert.deepEqual(['example@gmail.com', undefined], calls[1]);
+
+    assert.deepEqual(user.attrs, user.dirty);
+  });
+
+  // XXX: todo
+  //it('should clear attributes if set back to original value', function(){
+  //  var user = model('user').attr('email').create();
+  //
+  //  user
+  //    .email('example@gmail.com')
+  //    .email(undefined);
+  //});
 });

@@ -36,6 +36,7 @@ function model(name) {
 
     this.attrs = attrs;
     this.dirty = attrs;
+    this._callbacks = {};
     // XXX: need function binding component
     // https://github.com/component/bind/blob/master/index.js
     // but that is inefficient.
@@ -53,6 +54,7 @@ function model(name) {
   Model.validators = [];
   Model.prototypes = [];
   Model.relations = [];
+  Model._callbacks = {};
 
   for (var key in statics) Model[key] = statics[key];
 
@@ -95,3 +97,18 @@ exports.use = function(obj){
 Emitter(model);
 Emitter(statics);
 Emitter(proto);
+
+/**
+ * Clear models.
+ */
+
+exports.clear = function(){
+  constructors.forEach(function(emitter){
+    emitter.off('define');
+    delete constructors[emitter.className];
+  });
+
+  constructors.length = 0;
+
+  return exports;
+}
