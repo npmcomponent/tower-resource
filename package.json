@@ -9,7 +9,7 @@
     "database"
   ],
   "dependencies": {
-    "emitter-component": "~1.0.0",
+    "tower-emitter": "*",
     "tower-query": "*",
     "tower-stream": "*"
   },

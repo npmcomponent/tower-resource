@@ -11,7 +11,7 @@
     "database"
   ],
   "dependencies": {
-    "component/emitter": "*",
+    "tower/emitter": "*",
     "tower/adapter": "*",
     "tower/stream": "*"
   },

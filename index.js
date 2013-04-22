@@ -5,7 +5,7 @@
 
 var proto = require('./lib/proto')
   , statics = require('./lib/static')
-  , Emitter = 'undefined' == typeof window ? require('emitter-component') : require('emitter');
+  , Emitter = require('tower-emitter');
 
 /**
  * Expose `model`.
