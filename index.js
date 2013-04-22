@@ -52,6 +52,7 @@ function model(name) {
   Model.attrs = [];
   Model.validators = [];
   Model.prototypes = [];
+  Model.relations = [];
 
   for (var key in statics) Model[key] = statics[key];
 
