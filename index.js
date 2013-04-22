@@ -22,7 +22,7 @@ exports = module.exports = model;
  */
 
 function model(name) {
-  if (models[name]) return models[name];
+  if (constructors[name]) return constructors[name];
 
   /**
    * Initialize a new model with the given `attrs`.
@@ -63,8 +63,8 @@ function model(name) {
   
   for (var key in proto) Model.prototype[key] = proto[key];
 
-  models[name] = Model;
-  models.push(Model);
+  constructors[name] = Model;
+  constructors.push(Model);
   model.emit('define', Model);
 
   return Model;
@@ -74,7 +74,7 @@ function model(name) {
  * Model classes.
  */
 
-var models = exports.models = [];
+var constructors = exports.constructors = [];
 
 /**
  * Mixins.
