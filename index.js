@@ -11,7 +11,7 @@ var proto = require('./lib/proto')
  * Expose `model`.
  */
 
-module.exports = model;
+exports = module.exports = model;
 
 /**
  * Create a new model constructor with the given `name`.
@@ -46,10 +46,6 @@ function model(name) {
     return 'model("' + name + '")';
   }
 
-  // mixin emitter
-
-  Emitter(Model);
-
   // statics
 
   Model.className = name;
@@ -77,10 +73,24 @@ function model(name) {
  * Model classes.
  */
 
-var models = model.models = [];
+var models = exports.models = [];
+
+/**
+ * Mixins.
+ */
+
+exports.use = function(obj){
+  if ('function' === typeof obj) {
+    obj.call(exports, statics, proto, exports);
+  } else {
+    for (var key in obj) statics[key] = obj[key]
+  }
+}
 
 /**
  * Mixin `Emitter`.
  */
 
 Emitter(model);
+Emitter(statics);
+Emitter(proto);

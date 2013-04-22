@@ -12,13 +12,11 @@
   ],
   "dependencies": {
     "component/emitter": "*",
-    "component/each": "*",
     "tower/adapter": "*",
-    "tower-stream": "*"
+    "tower/stream": "*"
   },
   "development": {
-    "component/assert": "*",
-    "component/domify": "*"
+    "component/assert": "*"
   },
   "scripts": [
     "lib/index.js",
