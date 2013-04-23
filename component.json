@@ -12,7 +12,6 @@
   ],
   "dependencies": {
     "tower/emitter": "*",
-    "tower/adapter": "*",
     "tower/stream": "*",
     "tower/query": "*",
     "part/async-series": "*"
