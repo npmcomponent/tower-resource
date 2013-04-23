@@ -14,7 +14,8 @@
     "tower/emitter": "*",
     "tower/adapter": "*",
     "tower/stream": "*",
-    "tower/query": "*"
+    "tower/query": "*",
+    "part/async-series": "*"
   },
   "development": {
     "component/assert": "*"
