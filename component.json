@@ -19,7 +19,7 @@
     "component/assert": "*"
   },
   "scripts": [
-    "lib/index.js",
+    "index.js",
     "lib/static.js",
     "lib/proto.js"
   ],
