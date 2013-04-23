@@ -23,6 +23,6 @@
     "lib/static.js",
     "lib/proto.js"
   ],
-  "main": "lib/index.js",
+  "main": "index.js",
   "license": "MIT"
 }
