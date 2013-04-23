@@ -37,6 +37,7 @@ function model(name) {
     this.attrs = attrs;
     this.dirty = attrs;
     this._callbacks = {};
+    Model.emit('init', this);
     // XXX: need function binding component
     // https://github.com/component/bind/blob/master/index.js
     // but that is inefficient.
