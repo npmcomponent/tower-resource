@@ -68,7 +68,8 @@ function model(name) {
 
   constructors[name] = Model;
   constructors.push(Model);
-  model.emit('define', Model);
+  exports.emit('define ' + name, Model);
+  exports.emit('define', Model);
 
   return Model;
 }
@@ -89,6 +90,25 @@ exports.use = function(obj){
   } else {
     for (var key in obj) statics[key] = obj[key]
   }
+}
+
+/**
+ * Lazy-load stuff for a particular constructor.
+ *
+ * Example:
+ *
+ *    model.load('user', require.resolve('./lib/user'));
+ *
+ * @param {String} name
+ * @param {String} path
+ */
+
+exports.load = function(name, path){
+  exports.on('define ' + name, function(){
+    require(path);
+  });
+
+  return exports;
 }
 
 /**
