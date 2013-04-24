@@ -136,10 +136,10 @@ exports.ns = function(ns){
   }
 
   // XXX: copy functions?
-  // for (var key in exports) 
-  model.use = exports.use;
-  model.ns = exports.ns;
-  model.load = exports.load;
+  for (var key in exports) {
+    if ('function' === typeof exports[key])
+      model[key] = exports[key];
+  }
   return model;
 }
 
