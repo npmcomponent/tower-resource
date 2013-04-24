@@ -105,6 +105,7 @@ exports.use = function(obj){
  */
 
 exports.load = function(name, path){
+  // extra args, eg. `model.load('user', path, adapter);`
   var args = slice.call(arguments, 2);
 
   exports.on('define ' + name, function(x){
@@ -119,6 +120,27 @@ exports.load = function(name, path){
   });
 
   return exports;
+}
+
+/**
+ * Create a `model` function that
+ * just prepends a namespace to every key.
+ *
+ * This is used to make the DSL simpler,
+ * check out the `tower-adapter` code for an example.
+ */
+
+exports.ns = function(ns){
+  function model(name) {
+    return exports(ns + '.' + name);
+  }
+
+  // XXX: copy functions?
+  // for (var key in exports) 
+  model.use = exports.use;
+  model.ns = exports.ns;
+  model.load = exports.load;
+  return model;
 }
 
 /**
