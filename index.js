@@ -5,7 +5,8 @@
 
 var proto = require('./lib/proto')
   , statics = require('./lib/static')
-  , Emitter = require('tower-emitter');
+  , Emitter = require('tower-emitter')
+  , slice = [].slice;
 
 /**
  * Expose `model`.
@@ -104,8 +105,17 @@ exports.use = function(obj){
  */
 
 exports.load = function(name, path){
-  exports.on('define ' + name, function(){
-    require(path);
+  var args = slice.call(arguments, 2);
+
+  exports.on('define ' + name, function(x){
+    var result = require(path);
+    
+    if ('function' === typeof result) {
+      args.unshift(x);
+      result.apply(result, args);
+    }
+
+    args = undefined;
   });
 
   return exports;
