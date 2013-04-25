@@ -6,6 +6,7 @@
 var proto = require('./lib/proto')
   , statics = require('./lib/static')
   , Emitter = require('tower-emitter')
+  , stream = require('tower-stream')
   , slice = [].slice;
 
 /**
@@ -66,6 +67,9 @@ function model(name) {
   Model.prototype.constructor = Model;
   
   for (var key in proto) Model.prototype[key] = proto[key];
+
+  // XXX: remove def from ./lib/static
+  Model.action = stream.ns(name);
 
   constructors[name] = Model;
   constructors.push(Model);
