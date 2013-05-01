@@ -2,6 +2,8 @@ var model = require('..')
   , adapter = require('tower-adapter')
   , assert = require('assert');
 
+require('tower-memory-adapter');
+
 describe('model', function(){
   beforeEach(model.clear);
 
@@ -15,8 +17,7 @@ describe('model', function(){
     });
 
     var Post = model('post')
-      .attr('title')
-        .validate('presence')
+      .attr('title').required()
       .attr('body');
 
     assert(1 == calls);
@@ -40,12 +41,13 @@ describe('model', function(){
         calls.push('validate2');
       });
 
-    model('user').save(function(){
+    model('user').create(function(){
       assert(2 === calls.length);
       assert('validate1' === calls[0]);
       assert('validate2' === calls[1]);
 
       model('user').query().on('data', function(records){
+      //model('user').query(function(err, records){
         assert(1 === records.length);
         done();
       });
