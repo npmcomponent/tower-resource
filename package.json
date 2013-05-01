@@ -13,6 +13,8 @@
     "tower-query": "*",
     "tower-stream": "*",
     "tower-attr": "*",
+    "tower-validator": "*",
+    "tower-inflector": "*",
     "part-async-series": "*"
   },
   "main": "./index.js"
