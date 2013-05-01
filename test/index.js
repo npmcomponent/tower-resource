@@ -1,5 +1,6 @@
 var model = require('..')
   , adapter = require('tower-adapter')
+  , series = require('part-async-series')
   , assert = require('assert');
 
 require('tower-memory-adapter');
@@ -87,4 +88,37 @@ describe('model', function(){
   //    .email('example@gmail.com')
   //    .email(undefined);
   //});
+
+  describe('validations', function(){
+    it('should validate', function(){
+      model('post')
+        .validate(function(obj, fn){
+          // XXX: move into model/proto
+          var validators = [];
+          obj.constructor.attrs.forEach(function(attr){
+            if (attr.validators && attr.validators.length) {
+              validators.push(function validate(obj){
+                attr.validate(obj);
+              });
+            }
+          });
+
+          series(validators, obj, fn);
+        })
+        .attr('title')
+          //.required()
+        .attr('body', 'text')
+        .attr('status', 'string')
+          .validate('in', [ 'draft', 'published' ])
+        .attr('tags', 'array')
+          //.validate('lte', 5)
+
+      var post = model('post').init();
+      post.validate();
+      assert(1 === post.errors.length);
+      var post = model('post').init({ status: 'draft' });
+      post.validate();
+      assert(0 === post.errors.length);
+    });
+  });
 });

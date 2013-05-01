@@ -12,7 +12,8 @@
     "tower-emitter": "*",
     "tower-query": "*",
     "tower-stream": "*",
-    "tower-attr": "*"
+    "tower-attr": "*",
+    "part-async-series": "*"
   },
   "main": "./index.js"
 }
