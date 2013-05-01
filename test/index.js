@@ -92,19 +92,6 @@ describe('model', function(){
   describe('validations', function(){
     it('should validate', function(){
       model('post')
-        .validate(function(obj, fn){
-          // XXX: move into model/proto
-          var validators = [];
-          obj.constructor.attrs.forEach(function(attr){
-            if (attr.validators && attr.validators.length) {
-              validators.push(function validate(obj){
-                attr.validate(obj);
-              });
-            }
-          });
-
-          series(validators, obj, fn);
-        })
         .attr('title')
           //.required()
         .attr('body', 'text')
