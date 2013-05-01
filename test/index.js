@@ -18,7 +18,7 @@ describe('model', function(){
     });
 
     var Post = model('post')
-      .attr('title').required()
+      .attr('title')
       .attr('body');
 
     assert(1 == calls);
