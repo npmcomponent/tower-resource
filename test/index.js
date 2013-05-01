@@ -93,7 +93,7 @@ describe('model', function(){
     it('should validate', function(){
       model('post')
         .attr('title')
-          //.required()
+          .validate('present')
         .attr('body', 'text')
         .attr('status', 'string')
           .validate('in', [ 'draft', 'published' ])
@@ -102,8 +102,13 @@ describe('model', function(){
 
       var post = model('post').init();
       post.validate();
-      assert(1 === post.errors.length);
+      assert(2 === post.errors.length);
+      assert('Invalid attribute: title' === post.errors[0]);
+      assert('Invalid attribute: status' === post.errors[1]);
       var post = model('post').init({ status: 'draft' });
+      post.validate();
+      assert(1 === post.errors.length);
+      var post = model('post').init({ status: 'draft', title: 'Hello World' });
       post.validate();
       assert(0 === post.errors.length);
     });
