@@ -11,7 +11,8 @@
   "dependencies": {
     "tower-emitter": "*",
     "tower-query": "*",
-    "tower-stream": "*"
+    "tower-stream": "*",
+    "tower-attr": "*"
   },
   "main": "./index.js"
 }
