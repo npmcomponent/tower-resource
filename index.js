@@ -75,8 +75,8 @@ function model(name) {
 
   constructors[name] = Model;
   constructors.push(Model);
-  exports.emit('define ' + name, Model);
   exports.emit('define', Model);
+  exports.emit('define ' + name, Model);
 
   return Model;
 }
