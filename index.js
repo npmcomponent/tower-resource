@@ -3,10 +3,11 @@
  * Module dependencies.
  */
 
-var proto = require('./lib/proto')
-  , statics = require('./lib/static')
-  , Emitter = require('tower-emitter')
+var Emitter = require('tower-emitter')
   , stream = require('tower-stream')
+  , validator = require('tower-validator').ns('model')
+  , proto = require('./lib/proto')
+  , statics = require('./lib/static')
   , slice = [].slice;
 
 /**
@@ -14,6 +15,12 @@ var proto = require('./lib/proto')
  */
 
 exports = module.exports = model;
+
+/**
+ * Expose `validator`.
+ */
+
+exports.validator = validator;
 
 /**
  * Create a new model constructor with the given `name`.
