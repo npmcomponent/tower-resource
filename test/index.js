@@ -60,7 +60,7 @@ describe('model', function(){
     model('user')
       .attr('email');
 
-    var user = model('user').create();
+    var user = model('user').init();
 
     assert(undefined === user.email());
     user.on('change email', function(curr, prev){
