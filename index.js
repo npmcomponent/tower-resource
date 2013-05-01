@@ -58,6 +58,8 @@ function model(name) {
   Model.prototypes = [];
   Model.relations = [];
   Model._callbacks = {};
+  // starting off context
+  Model.context = Model;
 
   for (var key in statics) Model[key] = statics[key];
 
