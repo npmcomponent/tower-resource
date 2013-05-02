@@ -31,7 +31,6 @@ describe('model', function(){
     var calls = [];
 
     model('user')
-      .attr('email')
       .validate(function(context, next){
         calls.push('validate1');
         next();
@@ -45,7 +44,7 @@ describe('model', function(){
       assert('validate1' === calls[0]);
       assert('validate2' === calls[1]);
 
-      model('user').query().on('data', function(records){
+      model('user').find().on('data', function(records){
       //model('user').query(function(err, records){
         assert(1 === records.length);
         done();
