@@ -25,8 +25,6 @@ describe('model', function(){
     assert.equal(Post, DefinedModel);
 
     assert.equal(2, Post.attrs.length);
-    assert.deepEqual({ name: 'title', type: 'string' }, Post.attrs[0]);
-    assert.deepEqual({ name: 'body', type: 'string' }, Post.attrs[1]);
   });
 
   it('should validate/save/query', function(done){
