@@ -6,6 +6,7 @@
 var Emitter = require('tower-emitter')
   , stream = require('tower-stream')
   , validator = require('tower-validator').ns('model')
+  , load = require('tower-load')
   , proto = require('./lib/proto')
   , statics = require('./lib/static')
   , slice = [].slice;
@@ -118,21 +119,9 @@ exports.use = function(obj){
  */
 
 exports.load = function(name, path){
-  // extra args, eg. `model.load('user', path, adapter);`
-  var args = slice.call(arguments, 2);
-
-  exports.on('define ' + name, function(x){
-    var result = require(path);
-    
-    if ('function' === typeof result) {
-      args.unshift(x);
-      result.apply(result, args);
-    }
-
-    args = undefined;
-  });
-
-  return exports;
+  return 1 === arguments.length
+    ? load(exports, name)
+    : load.apply(load, [exports].concat(Array.prototype.slice.call(arguments)));
 }
 
 /**

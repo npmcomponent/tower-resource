@@ -16,7 +16,8 @@
     "tower/query": "*",
     "tower/attr": "*",
     "tower/validator": "*",
-    "tower-inflector": "*",
+    "tower/inflector": "*",
+    "tower/load": "*",
     "part/async-series": "*"
   },
   "development": {

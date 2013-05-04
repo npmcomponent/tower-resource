@@ -15,6 +15,7 @@
     "tower-attr": "*",
     "tower-validator": "*",
     "tower-inflector": "*",
+    "tower-load": "*",
     "part-async-series": "*"
   },
   "main": "./index.js"
