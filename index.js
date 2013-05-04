@@ -18,6 +18,12 @@ var Emitter = require('tower-emitter')
 exports = module.exports = model;
 
 /**
+ * Expose `collection`
+ */
+
+exports.collection = [];
+
+/**
  * Expose `validator`.
  */
 
@@ -32,7 +38,8 @@ exports.validator = validator;
  */
 
 function model(name) {
-  if (constructors[name]) return constructors[name];
+  if (exports.collection[name]) return exports.collection[name];
+  if (exports.load(name)) return exports.collection[name];
 
   /**
    * Initialize a new model with the given `attrs`.
@@ -81,19 +88,13 @@ function model(name) {
   // XXX: remove def from ./lib/static
   Model.action = stream.ns(name);
 
-  constructors[name] = Model;
-  constructors.push(Model);
+  exports.collection[name] = Model;
+  exports.collection.push(Model);
   exports.emit('define', Model);
   exports.emit('define ' + name, Model);
 
   return Model;
 }
-
-/**
- * Model classes.
- */
-
-var constructors = exports.constructors = [];
 
 /**
  * Mixins.
@@ -158,12 +159,12 @@ Emitter(proto);
  */
 
 exports.clear = function(){
-  constructors.forEach(function(emitter){
+  exports.collection.forEach(function(emitter){
     emitter.off('define');
-    delete constructors[emitter.className];
+    delete exports.collection[emitter.className];
   });
 
-  constructors.length = 0;
+  exports.collection.length = 0;
 
   return exports;
 }
