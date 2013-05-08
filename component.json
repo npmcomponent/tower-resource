@@ -18,7 +18,6 @@
     "tower/validator": "*",
     "tower/inflector": "*",
     "tower/load": "*",
-    "tower/query-optimizer": "*",
     "part/async-series": "*"
   },
   "development": {
