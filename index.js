@@ -68,6 +68,7 @@ function model(name) {
   // statics
 
   Model.className = name;
+  Model.id = name;
   Model.attrs = [];
   Model.validators = [];
   Model.prototypes = [];
