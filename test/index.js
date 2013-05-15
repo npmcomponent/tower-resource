@@ -110,4 +110,10 @@ describe('model', function(){
       assert(0 === post.errors.length);
     });
   });
+
+  describe('query', function(){
+    it('should have `all` method on constructor', function(){
+      assert('function' === typeof model('todo').all);
+    });
+  });
 });
