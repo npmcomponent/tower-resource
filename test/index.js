@@ -100,6 +100,31 @@ describe('model', function(){
       record.set('foo', 'bar');
       assert(undefined === record.get('foo'));
     });
+
+    it('should sanitize/typcast', function(){
+      model('sanitized')
+        .attr('integerAttr', 'integer')
+        .attr('floatAttr', 'float')
+        .attr('stringAttr', 'string')
+        // XXX: for dates, need to figure out 
+        //      hook into more robust lib.
+        .attr('dateAttr', 'date')
+        .attr('booleanAttr', 'boolean')
+
+      var record = model('sanitized').init();
+      record.set('integerAttr', '61');
+      assert(61 === record.get('integerAttr'));
+      record.set('floatAttr', '6.1');
+      assert(6.1 === record.get('floatAttr'));
+      record.set('stringAttr', 100);
+      assert('100' === record.get('stringAttr'));
+      record.set('dateAttr', '1948-07-15');
+      assert(Date.parse('1948-07-15') === record.get('dateAttr').getTime());
+      record.set('booleanAttr', 0);
+      assert(false === record.get('booleanAttr'));
+      record.set('booleanAttr', 1);
+      assert(true === record.get('booleanAttr'));
+    });
   });
 
   // XXX: todo
