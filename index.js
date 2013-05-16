@@ -86,7 +86,6 @@ function model(name) {
   
   for (var key in proto) Model.prototype[key] = proto[key];
 
-  // XXX: remove def from ./lib/static
   Model.action = stream.ns(name);
 
   exports.collection[name] = Model;

@@ -22,9 +22,9 @@ describe('model', function(){
       .attr('body');
 
     assert(1 == calls);
-    assert.equal(Post, DefinedModel);
+    assert(Post === DefinedModel);
 
-    assert.equal(2, Post.attrs.length);
+    assert(2 === Post.attrs.length);
   });
 
   it('should validate/save/query', function(done){
@@ -44,8 +44,7 @@ describe('model', function(){
       assert('validate1' === calls[0]);
       assert('validate2' === calls[1]);
 
-      model('user').find().on('data', function(records){
-      //model('user').query(function(err, records){
+      model('user').find(function(err, records){
         assert(1 === records.length);
         done();
       });
@@ -70,6 +69,7 @@ describe('model', function(){
       });
 
     user.email('example@gmail.com');
+    assert('example@gmail.com' === user.get('email'));
     assert('example@gmail.com' === user.email());
     assert.deepEqual([user, 'example@gmail.com', undefined], calls[0]);
     assert.deepEqual(['example@gmail.com', undefined], calls[1]);
