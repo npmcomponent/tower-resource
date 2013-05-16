@@ -55,7 +55,7 @@ function model(name) {
     this._callbacks = {};
     attrs = Model._defaultAttrs(attrs, this);
 
-    for (var key in attrs) this.set(key, attrs[key]);
+    for (var key in attrs) this.set(key, attrs[key], true);
 
     Model.emit('init', this);
   }
