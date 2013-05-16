@@ -153,7 +153,7 @@ exports.ns = function(ns){
 
 // XXX: maybe remove "model('name')" as toString.
 exports.is = function(obj){
-  return obj && obj.toString().indexOf('model(') === 0;
+  return obj && obj.constructor.toString().indexOf('model(') === 0;
 }
 
 /**
