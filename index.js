@@ -107,7 +107,7 @@ exports.use = function(obj){
   } else {
     for (var key in obj) statics[key] = obj[key]
   }
-}
+};
 
 /**
  * Lazy-load stuff for a particular constructor.
@@ -124,7 +124,7 @@ exports.load = function(name, path){
   return 1 === arguments.length
     ? load(exports, name)
     : load.apply(load, [exports].concat(Array.prototype.slice.call(arguments)));
-}
+};
 
 /**
  * Create a `model` function that
@@ -145,7 +145,7 @@ exports.ns = function(ns){
       model[key] = exports[key];
   }
   return model;
-}
+};
 
 /**
  * Mixin `Emitter`.
@@ -168,4 +168,4 @@ exports.clear = function(){
   exports.collection.length = 0;
 
   return exports;
-}
+};
