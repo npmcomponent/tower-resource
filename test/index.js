@@ -51,30 +51,47 @@ describe('model', function(){
     });
   });
 
-  it('should get/set attributes', function(){
-    var calls = [];
+  describe('attrs', function(){
+    it('should get/set', function(){
+      var calls = [];
 
-    model('user')
-      .attr('email');
+      model('user')
+        .attr('email');
 
-    var user = model('user').init();
+      var user = model('user').init();
 
-    assert(undefined === user.email());
-    user.on('change email', function(curr, prev){
-      calls.push([curr, prev]);
-    });
-    model('user')
-      .on('change email', function(record, curr, prev){
-        calls.push([record, curr, prev]);
+      assert(undefined === user.email());
+      user.on('change email', function(curr, prev){
+        calls.push([curr, prev]);
       });
+      model('user')
+        .on('change email', function(record, curr, prev){
+          calls.push([record, curr, prev]);
+        });
 
-    user.email('example@gmail.com');
-    assert('example@gmail.com' === user.get('email'));
-    assert('example@gmail.com' === user.email());
-    assert.deepEqual([user, 'example@gmail.com', undefined], calls[0]);
-    assert.deepEqual(['example@gmail.com', undefined], calls[1]);
+      user.email('example@gmail.com');
+      assert('example@gmail.com' === user.get('email'));
+      assert('example@gmail.com' === user.email());
+      assert.deepEqual([user, 'example@gmail.com', undefined], calls[0]);
+      assert.deepEqual(['example@gmail.com', undefined], calls[1]);
 
-    assert.deepEqual(user.attrs, user.dirty);
+      assert.deepEqual(user.attrs, user.dirty);
+    });
+
+    it('should set default attributes on init', function(){
+      // XXX: is there a more optimized way than this?
+      // thinking that it's more optimized _not_ to do lazy
+      // evaluation here, b/c everything (adapters, templates/scopes, etc.)
+      // will constantly be lazily evaluating.
+      // if we can assume that the attributes are set, then
+      // in those cases it can just grab `.attrs`, which is much more optimized.
+      model('todo')
+        .attr('title', 'string')
+        .attr('completed', 'boolean', false);
+
+      var todo = model('todo').init();
+      assert(false === todo.attrs.completed);
+    });
   });
 
   // XXX: todo

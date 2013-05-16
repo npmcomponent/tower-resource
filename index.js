@@ -48,17 +48,16 @@ function model(name) {
    * @api public
    */
 
-  function Model(attrs) {
-    attrs || (attrs = {});
-
-    this.attrs = attrs;
-    this.dirty = attrs;
+  function Model(attrs, storedAttrs) {
+    // XXX: if storedAttrs, don't set to dirty
+    this.attrs = {};
+    this.dirty = {};
     this._callbacks = {};
+    attrs = Model._defaultAttrs(attrs, this);
+
+    for (var key in attrs) this.set(key, attrs[key]);
+
     Model.emit('init', this);
-    // XXX: need function binding component
-    // https://github.com/component/bind/blob/master/index.js
-    // but that is inefficient.
-    // this.action = this.action.bind(this);
   }
 
   Model.toString = function toString(){
@@ -70,6 +69,8 @@ function model(name) {
   Model.className = name;
   Model.id = name;
   Model.attrs = [];
+  // optimization
+  Model.attrs.__default__ = {};
   Model.validators = [];
   Model.prototypes = [];
   Model.relations = [];
