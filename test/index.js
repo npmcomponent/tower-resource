@@ -138,15 +138,6 @@ describe('model', function(){
     });
   });
 
-  // XXX: todo
-  //it('should clear attributes if set back to original value', function(){
-  //  var user = model('user').attr('email').create();
-  //
-  //  user
-  //    .email('example@gmail.com')
-  //    .email(undefined);
-  //});
-
   describe('validations', function(){
     it('should validate', function(){
       model('post')
