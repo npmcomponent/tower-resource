@@ -55,7 +55,10 @@ function model(name) {
     this._callbacks = {};
     attrs = Model._defaultAttrs(attrs, this);
 
-    for (var key in attrs) this.set(key, attrs[key], true);
+    for (var key in attrs) {
+      if (attrs.hasOwnProperty(key))
+        this.set(key, attrs[key], true);
+    }
 
     Model.emit('init', this);
   }
@@ -88,6 +91,7 @@ function model(name) {
   for (var key in proto) Model.prototype[key] = proto[key];
 
   Model.action = stream.ns(name);
+  Model.id();
 
   exports.collection[name] = Model;
   exports.collection.push(Model);
@@ -146,6 +150,11 @@ exports.ns = function(ns){
   }
   return model;
 };
+
+// XXX: maybe remove "model('name')" as toString.
+exports.is = function(obj){
+  return obj && obj.toString().indexOf('model(') === 0;
+}
 
 /**
  * Mixin `Emitter`.
