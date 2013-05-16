@@ -92,6 +92,14 @@ describe('model', function(){
       var todo = model('todo').init();
       assert(false === todo.attrs.completed);
     });
+
+    it('should not allow setting non-declared attrs', function(){
+      model('non-declared');
+
+      var record = model('non-declared').init();
+      record.set('foo', 'bar');
+      assert(undefined === record.get('foo'));
+    });
   });
 
   // XXX: todo
