@@ -109,7 +109,7 @@ describe('model', function(){
         // XXX: for dates, need to figure out 
         //      hook into more robust lib.
         .attr('dateAttr', 'date')
-        .attr('booleanAttr', 'boolean')
+        .attr('booleanAttr', 'boolean');
 
       var record = model('sanitized').init();
       record.set('integerAttr', '61');
@@ -124,6 +124,17 @@ describe('model', function(){
       assert(false === record.get('booleanAttr'));
       record.set('booleanAttr', 1);
       assert(true === record.get('booleanAttr'));
+    });
+
+    it('should coerce attr to default value if set to undefined', function(){
+      model('coerced')
+        .attr('foo', 'string', 'bar');
+
+      var record = model('coerced').init();
+      assert('bar' === record.get('foo'));
+      // XXX: maybe b/c of this, we can get rid of `get` doing the check.
+      record.set('foo', undefined);
+      assert('bar' === record.get('foo'));
     });
   });
 
