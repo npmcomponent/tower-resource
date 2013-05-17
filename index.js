@@ -3,13 +3,13 @@
  * Module dependencies.
  */
 
-var Emitter = require('tower-emitter')
-  , stream = require('tower-stream')
-  , validator = require('tower-validator').ns('model')
-  , load = require('tower-load')
-  , proto = require('./lib/proto')
-  , statics = require('./lib/static')
-  , slice = [].slice;
+var Emitter = require('tower-emitter');
+var stream = require('tower-stream');
+var validator = require('tower-validator').ns('model');
+var load = require('tower-load');
+var proto = require('./lib/proto');
+var statics = require('./lib/static');
+var slice = [].slice;
 
 /**
  * Expose `model`.
@@ -102,6 +102,14 @@ function model(name) {
 }
 
 /**
+ * Mixin `Emitter`.
+ */
+
+Emitter(model);
+Emitter(statics);
+Emitter(proto);
+
+/**
  * Mixins.
  */
 
@@ -154,15 +162,7 @@ exports.ns = function(ns){
 // XXX: maybe remove "model('name')" as toString.
 exports.is = function(obj){
   return obj && obj.constructor.toString().indexOf('model(') === 0;
-}
-
-/**
- * Mixin `Emitter`.
- */
-
-Emitter(model);
-Emitter(statics);
-Emitter(proto);
+};
 
 /**
  * Clear models.
