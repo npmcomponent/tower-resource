@@ -4,21 +4,21 @@
 
 node:
 
-```
-npm install tower-resource
+```bash
+$ npm install tower-resource
 ```
 
 browser:
 
-```
-component install tower/resource
+```bash
+$ component install tower/resource
 ```
 
 ## API
 
 No examples yet, come back later :)
 
-``` js
+```js
 var resource = require('tower-resource');
 
 resource('user')
@@ -32,13 +32,13 @@ resource('user')
 
 You can also customize the class/prototype:
 
-``` js
+```js
 var User = resource('user');
 ```
 
 Each resource class gets stored in a globally registered instance of `tower-container`:
 
-``` js
+```js
 var container = require('tower-container');
 
 User == container.lookup('resource', 'user');
@@ -56,7 +56,7 @@ Unlike traditional ORMs such as ActiveRecord for Rails, the resource isn't the c
 
 To save/remove a single record, you can do it from the resource:
 
-``` js
+```js
 user.save();
 user.remove();
 ```
@@ -65,33 +65,33 @@ But, internally this just delegates to the controller.
 
 ### Resource#build
 
-``` js
+```js
 var user = resource('user').build();
 ```
 
 You can also do this the more traditional way:
 
-``` js
+```js
 var User = resource('user');
 var user = new User;
 ```
 
 ### Resource#save
 
-``` js
+```js
 user.save();
 user.save(false); // save and don't validate
 ```
 
 ### Resource#remove
 
-``` js
+```js
 user.remove();
 ```
 
 ### Resource#validate
 
-``` js
+```js
 user.validate();
 ```
 
@@ -103,7 +103,7 @@ You can define your own custom validations too, see the `tower-resource-validato
 
 ### Resource#errors
 
-``` js
+```js
 user.errors;
 ```
 
@@ -111,7 +111,7 @@ user.errors;
 
 All of the attributes and values are stored on the `attrs` property on the record. Unlike the class `attrs` method, this is just a simple hash (not a `Set`).
 
-``` js
+```js
 user.attrs;
 ```
 
@@ -119,7 +119,7 @@ user.attrs;
 
 All of the changed properties are stored here.
 
-``` js
+```js
 user.dirty;
 ```
 
@@ -129,7 +129,7 @@ As you set properties, it will modify the `dirty` object. But, you may end up se
 
 Check if the resource is a new record (hasn't been persisted, doesn't have an `id`).
 
-``` js
+```js
 user.isNew();
 ```
 
@@ -137,7 +137,7 @@ user.isNew();
 
 Check if `attr` is present (not `null` or `undefined`).
 
-``` js
+```js
 user.has('email') //=> false
 user.set('email', 'foo.bar@gmail.com')
 user.has('email') //=> true
@@ -145,7 +145,7 @@ user.has('email') //=> true
 
 ### Resource.attr
 
-``` js
+```js
 resource('user')
   .attr('email')
   .attr('email', 'string')
@@ -167,7 +167,7 @@ When you set an attribute, it first passes through any _sanitizers_, then any _n
 
 All of the attributes you've defined are stored into a `Set` - an ordered hash.
 
-``` js
+```js
 resource('user').attrs.forEach(function(attr){
   console.log(attr.name, attr);
 });
@@ -179,7 +179,7 @@ The `validate` class method can be applied to either the resource class itself, 
 
 The simple case is validating an attribute, such as validating `email` is formatted as an email, or that the `username` is unique:
 
-``` js
+```js
 resource('user')
   .attr('email')
     .validate('isEmail')
@@ -189,7 +189,7 @@ resource('user')
 
 To define validations at the class level, make sure the fluent API's context is set back to the resource, rather than an attribute. You can do this by either defining the validation right after `resource('user')`, or by calling `.self()` in the DSL, which resets the DSL's context.
 
-``` js
+```js
 resource('user')
   .validate(function(record){
     return !!record;
@@ -205,7 +205,7 @@ resource('user')
 
 You can add custom methods to a record by modifying the class prototype.
 
-``` js
+```js
 var User = resource('user');
 
 User.prototype.fullName = function(){
@@ -215,7 +215,7 @@ User.prototype.fullName = function(){
 
 ### Resource.on
 
-``` js
+```js
 resource('user')
   .on('save', function() {})
   .on('saved', function() {})
@@ -232,7 +232,7 @@ resource('user')
 
 Add plugins to the resource.
 
-``` js
+```js
 resource('user')
   .use(timestamps);
 
