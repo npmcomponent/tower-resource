@@ -1,17 +1,17 @@
-# Tower Model
+# Tower Resource
 
 ## Installation
 
 node:
 
 ```
-npm install tower-model
+npm install tower-resource
 ```
 
 browser:
 
 ```
-component install tower/model
+component install tower/resource
 ```
 
 ## API
@@ -19,9 +19,9 @@ component install tower/model
 No examples yet, come back later :)
 
 ``` js
-var model = require('tower-model');
+var resource = require('tower-resource');
 
-model('user')
+resource('user')
   .attr('firstName')
   .attr('lastName')
   .attr('email')
@@ -33,28 +33,28 @@ model('user')
 You can also customize the class/prototype:
 
 ``` js
-var User = model('user');
+var User = resource('user');
 ```
 
-Each model class gets stored in a globally registered instance of `tower-container`:
+Each resource class gets stored in a globally registered instance of `tower-container`:
 
 ``` js
 var container = require('tower-container');
 
-User == container.lookup('model', 'user');
+User == container.lookup('resource', 'user');
 ```
 
-The goal of the model is to define the data in your app. Data can be things like:
+The goal of the resource is to define the data in your app. Data can be things like:
 
-- database records (traditional models in MVC)
+- database records (traditional resources in MVC)
 - reports (or query results from `count` or `groupBy`)
 - api resources
 - simple value objects
 - etc.
 
-Unlike traditional ORMs such as ActiveRecord for Rails, the model isn't the central api for accessing the database; that happens through the `controller`.
+Unlike traditional ORMs such as ActiveRecord for Rails, the resource isn't the central api for accessing the database; that happens through the `controller`.
 
-To save/remove a single record, you can do it from the model:
+To save/remove a single record, you can do it from the resource:
 
 ``` js
 user.save();
@@ -63,33 +63,33 @@ user.remove();
 
 But, internally this just delegates to the controller.
 
-### Model#build
+### Resource#build
 
 ``` js
-var user = model('user').build();
+var user = resource('user').build();
 ```
 
 You can also do this the more traditional way:
 
 ``` js
-var User = model('user');
+var User = resource('user');
 var user = new User;
 ```
 
-### Model#save
+### Resource#save
 
 ``` js
 user.save();
 user.save(false); // save and don't validate
 ```
 
-### Model#remove
+### Resource#remove
 
 ``` js
 user.remove();
 ```
 
-### Model#validate
+### Resource#validate
 
 ``` js
 user.validate();
@@ -99,15 +99,15 @@ The `validate` method is automatically called when you call `save()`.
 
 The `validate` method is also super optimized.
 
-You can define your own custom validations too, see the `tower-model-validator` library.
+You can define your own custom validations too, see the `tower-resource-validator` library.
 
-### Model#errors
+### Resource#errors
 
 ``` js
 user.errors;
 ```
 
-### Model#attrs
+### Resource#attrs
 
 All of the attributes and values are stored on the `attrs` property on the record. Unlike the class `attrs` method, this is just a simple hash (not a `Set`).
 
@@ -115,7 +115,7 @@ All of the attributes and values are stored on the `attrs` property on the recor
 user.attrs;
 ```
 
-### Model#dirty
+### Resource#dirty
 
 All of the changed properties are stored here.
 
@@ -125,15 +125,15 @@ user.dirty;
 
 As you set properties, it will modify the `dirty` object. But, you may end up setting some of the values back to the original value. Once you try to `save` the record, the union of `attrs` and `dirty` will be sent to the database adapter only, so those properties you set back to the original values won't actually get saved.
 
-### Model#isNew
+### Resource#isNew
 
-Check if the model is a new record (hasn't been persisted, doesn't have an `id`).
+Check if the resource is a new record (hasn't been persisted, doesn't have an `id`).
 
 ``` js
 user.isNew();
 ```
 
-### Model#has
+### Resource#has
 
 Check if `attr` is present (not `null` or `undefined`).
 
@@ -143,10 +143,10 @@ user.set('email', 'foo.bar@gmail.com')
 user.has('email') //=> true
 ```
 
-### Model.attr
+### Resource.attr
 
 ``` js
-model('user')
+resource('user')
   .attr('email')
   .attr('email', 'string')
   .attr('email', { type: 'string' })
@@ -163,34 +163,34 @@ The `type` field gets mapped to a globally defined type, with a `to` and `from` 
 
 When you set an attribute, it first passes through any _sanitizers_, then any _normalizers_ to typecast it. When you want to render it in a UI, you pass it through _formatters_.
 
-### Model.attrs
+### Resource.attrs
 
 All of the attributes you've defined are stored into a `Set` - an ordered hash.
 
 ``` js
-model('user').attrs.forEach(function(attr){
+resource('user').attrs.forEach(function(attr){
   console.log(attr.name, attr);
 });
 ```
 
-### Model.validate
+### Resource.validate
 
-The `validate` class method can be applied to either the model class itself, or an attribute.
+The `validate` class method can be applied to either the resource class itself, or an attribute.
 
 The simple case is validating an attribute, such as validating `email` is formatted as an email, or that the `username` is unique:
 
 ``` js
-model('user')
+resource('user')
   .attr('email')
     .validate('isEmail')
   .attr('username')
     .validate('isUsername')
 ```
 
-To define validations at the class level, make sure the fluent API's context is set back to the model, rather than an attribute. You can do this by either defining the validation right after `model('user')`, or by calling `.self()` in the DSL, which resets the DSL's context.
+To define validations at the class level, make sure the fluent API's context is set back to the resource, rather than an attribute. You can do this by either defining the validation right after `resource('user')`, or by calling `.self()` in the DSL, which resets the DSL's context.
 
 ``` js
-model('user')
+resource('user')
   .validate(function(record){
     return !!record;
   })
@@ -201,22 +201,22 @@ model('user')
     })
 ```
 
-### Model.prototype
+### Resource.prototype
 
 You can add custom methods to a record by modifying the class prototype.
 
 ``` js
-var User = model('user');
+var User = resource('user');
 
 User.prototype.fullName = function(){
   return this.firstName + ' ' + this.lastName;
 }
 ```
 
-### Model.on
+### Resource.on
 
 ``` js
-model('user')
+resource('user')
   .on('save', function() {})
   .on('saved', function() {})
   .on('create', function() {})
@@ -228,12 +228,12 @@ model('user')
   .on('error', function() {})
 ```
 
-### Model.use
+### Resource.use
 
-Add plugins to the model.
+Add plugins to the resource.
 
 ``` js
-model('user')
+resource('user')
   .use(timestamps);
 
 function timestamps(m){
