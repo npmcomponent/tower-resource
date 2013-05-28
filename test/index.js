@@ -1,28 +1,28 @@
-var model = require('..');
+var resource = require('..');
 var adapter = require('tower-adapter');
 var series = require('part-async-series');
 var assert = require('assert');
 
 require('tower-memory-adapter');
 
-describe('model', function(){
-  beforeEach(model.clear);
+describe('resource', function(){
+  beforeEach(resource.clear);
 
   it('should define', function(){
     var calls = 0;
-    var DefinedModel;
+    var DefinedResource;
 
-    model.on('define', function(m){
+    resource.on('define', function(m){
       calls++;
-      DefinedModel = m;
+      DefinedResource = m;
     });
 
-    var Post = model('post')
+    var Post = resource('post')
       .attr('title')
       .attr('body');
 
     assert(1 === calls);
-    assert(Post === DefinedModel);
+    assert(Post === DefinedResource);
 
     // assert(2 === Post.attrs.length);
   });
@@ -30,7 +30,7 @@ describe('model', function(){
   it('should validate/save/query', function(done){
     var calls = [];
 
-    model('user')
+    resource('user')
       .validate(function(context, next){
         calls.push('validate1');
         next();
@@ -39,12 +39,12 @@ describe('model', function(){
         calls.push('validate2');
       });
 
-    model('user').create(function(){
+    resource('user').create(function(){
       assert(2 === calls.length);
       assert('validate1' === calls[0]);
       assert('validate2' === calls[1]);
 
-      model('user').find(function(err, records){
+      resource('user').find(function(err, records){
         assert(1 === records.length);
         done();
       });
@@ -55,16 +55,16 @@ describe('model', function(){
     it('should get/set', function(){
       var calls = [];
 
-      model('user')
+      resource('user')
         .attr('email');
 
-      var user = model('user').init();
+      var user = resource('user').init();
 
       assert(undefined === user.email());
       user.on('change email', function(curr, prev){
         calls.push([curr, prev]);
       });
-      model('user')
+      resource('user')
         .on('change email', function(record, curr, prev){
           calls.push([record, curr, prev]);
         });
@@ -85,24 +85,24 @@ describe('model', function(){
       // will constantly be lazily evaluating.
       // if we can assume that the attributes are set, then
       // in those cases it can just grab `.attrs`, which is much more optimized.
-      model('todo')
+      resource('todo')
         .attr('title', 'string')
         .attr('completed', 'boolean', false);
 
-      var todo = model('todo').init();
+      var todo = resource('todo').init();
       assert(false === todo.attrs.completed);
     });
 
     it('should not allow setting non-declared attrs', function(){
-      model('non-declared');
+      resource('non-declared');
 
-      var record = model('non-declared').init();
+      var record = resource('non-declared').init();
       record.set('foo', 'bar');
       assert(undefined === record.get('foo'));
     });
 
     it('should sanitize/typcast', function(){
-      model('sanitized')
+      resource('sanitized')
         .attr('integerAttr', 'integer')
         .attr('floatAttr', 'float')
         .attr('stringAttr', 'string')
@@ -111,7 +111,7 @@ describe('model', function(){
         .attr('dateAttr', 'date')
         .attr('booleanAttr', 'boolean');
 
-      var record = model('sanitized').init();
+      var record = resource('sanitized').init();
       record.set('integerAttr', '61');
       assert(61 === record.get('integerAttr'));
       record.set('floatAttr', '6.1');
@@ -127,10 +127,10 @@ describe('model', function(){
     });
 
     it('should coerce attr to default value if set to undefined', function(){
-      model('coerced')
+      resource('coerced')
         .attr('foo', 'string', 'bar');
 
-      var record = model('coerced').init();
+      var record = resource('coerced').init();
       assert('bar' === record.get('foo'));
       // XXX: maybe b/c of this, we can get rid of `get` doing the check.
       record.set('foo', undefined);
@@ -140,7 +140,7 @@ describe('model', function(){
 
   describe('validations', function(){
     it('should validate', function(){
-      model('post')
+      resource('post')
         .attr('title')
           .validate('present')
         .attr('body', 'text')
@@ -149,15 +149,15 @@ describe('model', function(){
         .attr('tags', 'array')
           //.validate('lte', 5)
 
-      var post = model('post').init();
+      var post = resource('post').init();
       post.validate();
       assert(2 === post.errors.length);
       assert('Invalid attribute: title' === post.errors[0]);
       assert('Invalid attribute: status' === post.errors[1]);
-      var post = model('post').init({ status: 'draft' });
+      var post = resource('post').init({ status: 'draft' });
       post.validate();
       assert(1 === post.errors.length);
-      var post = model('post').init({ status: 'draft', title: 'Hello World' });
+      var post = resource('post').init({ status: 'draft', title: 'Hello World' });
       post.validate();
       assert(0 === post.errors.length);
     });
@@ -165,7 +165,7 @@ describe('model', function(){
 
   describe('query', function(){
     it('should have `all` method on constructor', function(){
-      assert('function' === typeof model('todo').all);
+      assert('function' === typeof resource('todo').all);
     });
   });
 });

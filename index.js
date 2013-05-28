@@ -5,17 +5,17 @@
 
 var Emitter = require('tower-emitter');
 var stream = require('tower-stream');
-var validator = require('tower-validator').ns('model');
+var validator = require('tower-validator').ns('resource');
 var load = require('tower-load');
 var proto = require('./lib/proto');
 var statics = require('./lib/static');
 var slice = [].slice;
 
 /**
- * Expose `model`.
+ * Expose `resource`.
  */
 
-exports = module.exports = model;
+exports = module.exports = resource;
 
 /**
  * Expose `collection`
@@ -30,82 +30,82 @@ exports.collection = [];
 exports.validator = validator;
 
 /**
- * Create a new model constructor with the given `name`.
+ * Create a new resource constructor with the given `name`.
  *
  * @param {String} name
  * @return {Function}
  * @api public
  */
 
-function model(name) {
+function resource(name) {
   if (exports.collection[name]) return exports.collection[name];
   if (exports.load(name)) return exports.collection[name];
 
   /**
-   * Initialize a new model with the given `attrs`.
+   * Initialize a new resource with the given `attrs`.
    *
    * @param {Object} attrs
    * @api public
    */
 
-  function Model(attrs, storedAttrs) {
+  function Resource(attrs, storedAttrs) {
     // XXX: if storedAttrs, don't set to dirty
     this.attrs = {};
     this.dirty = {};
     this._callbacks = {};
-    attrs = Model._defaultAttrs(attrs, this);
+    attrs = Resource._defaultAttrs(attrs, this);
 
     for (var key in attrs) {
       if (attrs.hasOwnProperty(key))
         this.set(key, attrs[key], true);
     }
 
-    Model.emit('init', this);
+    Resource.emit('init', this);
   }
 
-  Model.toString = function toString(){
-    return 'model("' + name + '")';
+  Resource.toString = function toString(){
+    return 'resource("' + name + '")';
   }
 
   // statics
 
-  Model.className = name;
-  Model.id = name;
-  Model.attrs = [];
+  Resource.className = name;
+  Resource.id = name;
+  Resource.attrs = [];
   // optimization
-  Model.attrs.__default__ = {};
-  Model.validators = [];
-  Model.prototypes = [];
-  Model.relations = [];
-  Model._callbacks = {};
+  Resource.attrs.__default__ = {};
+  Resource.validators = [];
+  Resource.prototypes = [];
+  Resource.relations = [];
+  Resource._callbacks = {};
   // starting off context
-  Model.context = Model;
+  Resource.context = Resource;
 
-  for (var key in statics) Model[key] = statics[key];
+  for (var key in statics) Resource[key] = statics[key];
 
   // prototype
 
-  Model.prototype = {};
-  Model.prototype.constructor = Model;
+  Resource.prototype = {};
+  Resource.prototype.constructor = Resource;
   
-  for (var key in proto) Model.prototype[key] = proto[key];
+  for (var key in proto) Resource.prototype[key] = proto[key];
 
-  Model.action = stream.ns(name);
-  Model.id();
+  Resource.action = stream.ns(name);
+  Resource.id();
 
-  exports.collection[name] = Model;
-  exports.collection.push(Model);
-  exports.emit('define', Model);
-  exports.emit('define ' + name, Model);
+  exports.collection[name] = Resource;
+  exports.collection.push(Resource);
+  exports.emit('define', Resource);
+  exports.emit('define ' + name, Resource);
 
-  return Model;
+  return Resource;
 }
 
 /**
  * Mixin `Emitter`.
  */
 
-Emitter(model);
+Emitter(resource);
 Emitter(statics);
 Emitter(proto);
 
@@ -126,7 +126,7 @@ exports.use = function(obj){
  *
  * Example:
  *
- *    model.load('user', require.resolve('./lib/user'));
+ *    resource.load('user', require.resolve('./lib/user'));
  *
  * @param {String} name
  * @param {String} path
@@ -139,7 +139,7 @@ exports.load = function(name, path){
 };
 
 /**
- * Create a `model` function that
+ * Create a `resource` function that
  * just prepends a namespace to every key.
  *
  * This is used to make the DSL simpler,
@@ -147,25 +147,25 @@ exports.load = function(name, path){
  */
 
 exports.ns = function(ns){
-  function model(name) {
+  function resource(name) {
     return exports(ns + '.' + name);
   }
 
   // XXX: copy functions?
   for (var key in exports) {
     if ('function' === typeof exports[key])
-      model[key] = exports[key];
+      resource[key] = exports[key];
   }
-  return model;
+  return resource;
 };
 
-// XXX: maybe remove "model('name')" as toString.
+// XXX: maybe remove "resource('name')" as toString.
 exports.is = function(obj){
-  return obj && obj.constructor.toString().indexOf('model(') === 0;
+  return obj && obj.constructor.toString().indexOf('resource(') === 0;
 };
 
 /**
- * Clear models.
+ * Clear resources.
  */
 
 exports.clear = function(){

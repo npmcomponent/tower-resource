@@ -1,11 +1,12 @@
 {
-  "name": "tower-model",
-  "repo": "tower/model",
-  "description": "Tower Model component",
+  "name": "tower-resource",
+  "repo": "tower/resource",
+  "description": "Tower resource component",
   "version": "0.0.1",
   "keywords": [
     "collection",
     "model",
+    "resource",
     "orm",
     "db",
     "database"
