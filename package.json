@@ -14,7 +14,7 @@
     "tower-stream": "*",
     "tower-attr": "*",
     "tower-validator": "*",
-    "tower-inflector": "*",
+    "tower-text": "*",
     "tower-load": "*",
     "part-async-series": "*"
   },
