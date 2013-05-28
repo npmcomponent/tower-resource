@@ -1,7 +1,7 @@
-var model = require('..')
-  , adapter = require('tower-adapter')
-  , series = require('part-async-series')
-  , assert = require('assert');
+var model = require('..');
+var adapter = require('tower-adapter');
+var series = require('part-async-series');
+var assert = require('assert');
 
 require('tower-memory-adapter');
 
@@ -9,8 +9,8 @@ describe('model', function(){
   beforeEach(model.clear);
 
   it('should define', function(){
-    var calls = 0
-      , DefinedModel;
+    var calls = 0;
+    var DefinedModel;
 
     model.on('define', function(m){
       calls++;
@@ -21,7 +21,7 @@ describe('model', function(){
       .attr('title')
       .attr('body');
 
-    assert(1 == calls);
+    assert(1 === calls);
     assert(Post === DefinedModel);
 
     // assert(2 === Post.attrs.length);
