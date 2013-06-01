@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tower Directive</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../build/build.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="../build/build.js"></script>
+    <script>require('visionmedia-mocha')</script>
+    <script>mocha.setup('bdd')</script>
+    <script src="/testem.js"></script>
+    <script src="index.js"></script>
+    <script>
+      if (window.mochaPhantomJS) {
+        mochaPhantomJS.run();
+      } else {
+        mocha.run();
+      }
+    </script>
+  </body>
+</html>

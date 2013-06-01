@@ -22,7 +22,9 @@
     "part/async-series": "*"
   },
   "development": {
-    "component/assert": "*"
+    "visionmedia/mocha": "*",
+    "timoxley/assert": "*",
+    "tower/memory-adapter": "*"
   },
   "scripts": [
     "index.js",

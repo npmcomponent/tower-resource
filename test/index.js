@@ -1,7 +1,13 @@
-var resource = require('..');
-var adapter = require('tower-adapter');
+
 var series = require('part-async-series');
-var assert = require('assert');
+
+if ('undefined' === typeof window) {
+  var resource = require('..');
+  var assert = require('assert');
+} else {
+  var resource = require('tower-resource');
+  var assert = require('timoxley-assert');
+}
 
 require('tower-memory-adapter');
 
