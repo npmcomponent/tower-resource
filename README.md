@@ -82,6 +82,8 @@ resource('post').update({ published: true });
 resource('post').remove();
 ```
 
+Under the hood, when you execute one of these actions, they get handled by a database-/service-specific adapter (mongodb, cassandra, facebook, etc.). Those adapters can perform optimizations such as streaming query results back.
+
 ## License
 
 MIT
