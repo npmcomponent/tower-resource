@@ -1,6 +1,6 @@
 {
   "name": "tower-resource",
-  "version": "0.5.0-pre",
+  "version": "0.5.0pre",
   "keywords": [
     "collection",
     "model",
@@ -10,13 +10,13 @@
     "database"
   ],
   "dependencies": {
-    "tower-emitter": "*",
-    "tower-query": "*",
-    "tower-stream": "*",
-    "tower-attr": "*",
-    "tower-validator": "*",
-    "tower-text": "*",
-    "tower-load": "*",
+    "tower-emitter": "~0.5.0pre",
+    "tower-query": "~0.5.0pre",
+    "tower-stream": "~0.5.0pre",
+    "tower-attr": "~0.5.0pre",
+    "tower-validator": "~0.5.0pre",
+    "tower-text": "~0.5.0pre",
+    "tower-load": "~0.5.0pre",
     "part-async-series": "*"
   },
   "main": "./index.js"

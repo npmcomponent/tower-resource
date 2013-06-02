@@ -2,7 +2,7 @@
   "name": "tower-resource",
   "repo": "tower/resource",
   "description": "Tower resource component",
-  "version": "0.0.1",
+  "version": "0.5.0pre",
   "keywords": [
     "collection",
     "model",

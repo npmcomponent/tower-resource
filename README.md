@@ -1,6 +1,6 @@
 # Tower Resource
 
-The data component.
+Data models that can be stored in any database or remote service using adapters.
 
 ## Installation
 
