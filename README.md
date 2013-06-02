@@ -48,7 +48,7 @@ resource('user')
 There are two DSL methods for validation.
 
 1. `validate`: for using predefined validations (see [tower-validator](https://github.com/tower/validator)), purely to clean up the API.
-2. `validator`: for defining custom validator functions right inline. If you want to reuse your custom validator function, just move the function into tower-validator.
+2. `validator`: for defining custom validator functions right inline. If you want to reuse your custom validator function across resources, just move the function into tower-validator.
 
 ### Queries
 
