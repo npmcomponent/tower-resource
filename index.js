@@ -132,6 +132,7 @@ exports.use = function(obj){
  *
  * @param {String} name Resource name.
  * @param {String} path Resource path.
+ * @api public
  */
 
 exports.load = function(name, path){
@@ -149,6 +150,7 @@ exports.load = function(name, path){
  *
  * @param {String} ns The namespace.
  * @return {Resource} The resource.
+ * @api public
  */
 
 exports.ns = function(ns){
@@ -170,6 +172,7 @@ exports.ns = function(ns){
  *
  * @param {Object} obj A JavaScript object.
  * @return {Boolean} true if obj is a `Resource` object, otherwise false.
+ * @api public
  */
 
 exports.is = function(obj){
@@ -179,7 +182,8 @@ exports.is = function(obj){
 /**
  * Clear resources.
  *
- * @return {this} self.
+ * @return {Function} exports The main `resource` function.
+ * @api public
  */
 
 exports.clear = function(){
