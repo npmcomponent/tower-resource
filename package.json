@@ -7,17 +7,22 @@
     "resource",
     "orm",
     "db",
-    "database"
+    "database",
+    "mvc"
   ],
   "dependencies": {
-    "tower-emitter": "~0.1.0pre",
-    "tower-query": "~0.1.0pre",
-    "tower-stream": "~0.1.0pre",
-    "tower-attr": "~0.1.0pre",
-    "tower-validator": "~0.1.0pre",
-    "tower-text": "~0.1.0pre",
-    "tower-load": "~0.1.0pre",
+    "tower-emitter": "~0.1.0",
+    "tower-query": "~0.1.0",
+    "tower-stream": "~0.1.0",
+    "tower-attr": "~0.1.0",
+    "tower-validator": "~0.1.0",
+    "tower-text": "~0.1.0",
+    "tower-load": "~0.1.0",
     "part-async-series": "*"
   },
-  "main": "./index.js"
+  "main": "./index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/tower/resource.git"
+  }
 }

@@ -12,13 +12,13 @@
     "database"
   ],
   "dependencies": {
-    "tower/emitter": "*",
-    "tower/stream": "*",
-    "tower/query": "*",
-    "tower/attr": "*",
-    "tower/validator": "*",
-    "tower/text": "*",
-    "tower/load": "*",
+    "tower/emitter": "0.1.0",
+    "tower/stream": "0.1.0",
+    "tower/query": "0.1.0",
+    "tower/attr": "0.1.0",
+    "tower/validator": "0.1.0",
+    "tower/text": "0.1.0",
+    "tower/load": "0.1.0",
     "part/async-series": "*"
   },
   "development": {
