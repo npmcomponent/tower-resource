@@ -32,8 +32,8 @@ exports.validator = validator;
 /**
  * Create a new resource constructor with the given `name`.
  *
- * @param {String} name
- * @return {Function}
+ * @param {String} name Resource name.
+ * @return {Function} The `Resource` class constructor.
  * @api public
  */
 
@@ -44,7 +44,9 @@ function resource(name) {
   /**
    * Initialize a new resource with the given `attrs`.
    *
-   * @param {Object} attrs
+   * @class
+   * @param {Object} attrs An object with attributes.
+   * @param {Boolean} storedAttrs Attributes that should not be dirtied.
    * @api public
    */
 
@@ -128,8 +130,9 @@ exports.use = function(obj){
  *
  *    resource.load('user', require.resolve('./lib/user'));
  *
- * @param {String} name
- * @param {String} path
+ * @param {String} name Resource name.
+ * @param {String} path Resource path.
+ * @api public
  */
 
 exports.load = function(name, path){
@@ -144,6 +147,10 @@ exports.load = function(name, path){
  *
  * This is used to make the DSL simpler,
  * check out the `tower-adapter` code for an example.
+ *
+ * @param {String} ns The namespace.
+ * @return {Resource} The resource.
+ * @api public
  */
 
 exports.ns = function(ns){
@@ -159,13 +166,24 @@ exports.ns = function(ns){
   return resource;
 };
 
-// XXX: maybe remove "resource('name')" as toString.
+/**
+ * Check object is a `Resource` object.
+ * XXX: maybe remove "resource('name')" as toString.
+ *
+ * @param {Object} obj A JavaScript object.
+ * @return {Boolean} true if obj is a `Resource` object, otherwise false.
+ * @api public
+ */
+
 exports.is = function(obj){
   return obj && obj.constructor.toString().indexOf('resource(') === 0;
 };
 
 /**
  * Clear resources.
+ *
+ * @return {Function} exports The main `resource` function.
+ * @api public
  */
 
 exports.clear = function(){
