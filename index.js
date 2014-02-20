@@ -3,10 +3,10 @@
  * Module dependencies.
  */
 
-var Emitter = require('tower-emitter');
-var stream = require('tower-stream');
+// commented out by npm-component: var Emitter = require('tower-emitter');
+// commented out by npm-component: var stream = require('tower-stream');
 var validator = require('tower-validator').ns('resource');
-var load = require('tower-load');
+// commented out by npm-component: var load = require('tower-load');
 var proto = require('./lib/proto');
 var statics = require('./lib/static');
 var slice = [].slice;

@@ -1,28 +1,25 @@
 {
   "name": "tower-resource",
-  "version": "0.1.0",
+  "description": "Tower resource component",
+  "version": "0.1.1",
   "keywords": [
     "collection",
     "model",
     "resource",
     "orm",
     "db",
-    "database",
-    "mvc"
+    "database"
   ],
+  "main": "index.js",
   "dependencies": {
-    "tower-emitter": "~0.1.0",
-    "tower-query": "~0.1.0",
-    "tower-stream": "~0.1.0",
-    "tower-attr": "~0.1.0",
-    "tower-validator": "~0.1.0",
-    "tower-text": "~0.1.0",
-    "tower-load": "~0.1.0",
-    "part-async-series": "*"
+    "tower-emitter": "git://github.com/npmcomponent/tower-emitter.git",
+    "tower-stream": "git://github.com/npmcomponent/tower-stream.git",
+    "tower-query": "git://github.com/npmcomponent/tower-query.git",
+    "tower-attr": "git://github.com/npmcomponent/tower-attr.git",
+    "tower-validator": "git://github.com/npmcomponent/tower-validator.git",
+    "tower-text": "git://github.com/npmcomponent/tower-text.git",
+    "tower-load": "git://github.com/npmcomponent/tower-load.git",
+    "part-async-series": "git://github.com/npmcomponent/part-async-series.git"
   },
-  "main": "./index.js",
-  "repository": {
-    "type" : "git",
-    "url" : "http://github.com/tower/resource.git"
-  }
+  "license": "MIT"
 }
